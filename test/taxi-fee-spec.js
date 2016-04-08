@@ -1,39 +1,27 @@
 var expect = require('chai').expect;
 var taxiFee = require('../taxi-fee');
 
+function expects(inputArr, expectArr) {
+    inputArr.map(function(input, idx) {
+        expect(taxiFee.charge(input[0], input[1])).to.equal(expectArr[idx]);
+    });
+}
+
 describe('taxiFee#charge', function() {
     it('should charge 6 RMB within 2 kilometers without waiting time', function() {
-        expect(taxiFee.charge(1, 0)).to.equal(6);
-        expect(taxiFee.charge(1.1, 0.0)).to.equal(6);
-        expect(taxiFee.charge(2, 0)).to.equal(6);
-        expect(taxiFee.charge(0, 0)).to.equal(6);
+        expects([[1, 0], [1.1, 0.0], [2, 0], [0, 0]], [6, 6, 6, 6])
     });
 
     it('should charge 0.25 RMB per waiting minute', function() {
-        expect(taxiFee.charge(1, 1)).to.equal(6);
-        expect(taxiFee.charge(1, 2)).to.equal(7);
-        expect(taxiFee.charge(1.1, 1.1)).to.equal(6);
-        expect(taxiFee.charge(2, 2)).to.equal(7);
-        expect(taxiFee.charge(0, 1)).to.equal(6);
-        expect(taxiFee.charge(0, 3)).to.equal(7);
+        expects([[1, 1], [1, 2], [1.1, 1.1], [2, 2], [0, 1], [0, 3]], [6, 7, 6, 7, 6, 7])
     });
 
     it('should charge 0.8 RMB per kilometer within 8 kilometers', function() {
-        expect(taxiFee.charge(3, 0)).to.equal(7);
-        expect(taxiFee.charge(4, 0)).to.equal(8);
-        expect(taxiFee.charge(2.5, 0)).to.equal(6);
-        expect(taxiFee.charge(2.6, 0)).to.equal(6);
-        expect(taxiFee.charge(2.7, 0)).to.equal(7);
-        expect(taxiFee.charge(3, 1)).to.equal(7);
-        expect(taxiFee.charge(3, 3)).to.equal(8);
+        expects([[3, 0], [4, 0], [2.5, 0], [2.6, 0], [2.7, 0], [3, 1], [3, 3]], [7, 8, 6, 6, 7, 7, 8]);
     });
 
     it('should charge 1.2 RMB per kilometer for distances over 8 kilometers', function() {
-        expect(taxiFee.charge(9, 0)).to.equal(12);
-        expect(taxiFee.charge(10, 0)).to.equal(13);
-        expect(taxiFee.charge(9.5, 0)).to.equal(13);
-        expect(taxiFee.charge(9, 2)).to.equal(13);
-        expect(taxiFee.charge(100, 2.3)).to.equal(122);
+        expects([[9, 0], [10, 0], [9.5, 0], [9, 2], [100, 2.3]], [12, 13, 13, 13, 122]);
     });
 
     it('should throw error when given negative distance', function() {
