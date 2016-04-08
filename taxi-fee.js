@@ -1,5 +1,7 @@
 module.exports = {
     charge: function(kilometers, waitingMinutes) {
-       if (kilometers <= 2) return 6;
+        var distanceCharge = 6;
+        var waitingCharge = waitingMinutes * 0.25;
+        return Math.round(distanceCharge + waitingCharge);
     }
 }

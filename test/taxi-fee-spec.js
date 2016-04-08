@@ -8,4 +8,13 @@ describe('taxiFee#charge', function() {
         expect(taxiFee.charge(2, 0)).to.equal(6);
         expect(taxiFee.charge(0, 0)).to.equal(6);
     });
+    
+    it('should charge 0.25 RMB per waiting minute', function() {
+        expect(taxiFee.charge(1, 1)).to.equal(6);
+        expect(taxiFee.charge(1, 2)).to.equal(7);    
+        expect(taxiFee.charge(1.1, 1.1)).to.equal(6);
+        expect(taxiFee.charge(2, 2)).to.equal(7);
+        expect(taxiFee.charge(0, 1)).to.equal(6);
+        expect(taxiFee.charge(0, 3)).to.equal(7);
+    })
 })
