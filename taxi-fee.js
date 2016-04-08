@@ -5,7 +5,8 @@ function charge(kilometers, waitingMinutes) {
 }
 
 function chargeDistance(kilometers) {
-    return Math.max(0, kilometers - 2) * 0.8 + 6;
+    return Math.max(0, kilometers - 8) * 0.4 + 
+           Math.max(0, kilometers - 2) * 0.8 + 6;
 }
 
 function chargeWaiting(waitingMinutes) {
