@@ -36,9 +36,14 @@ describe('taxiFee#charge', function() {
        expect(taxiFee.charge(100, 2.3)).to.equal(122);
    });
    
-   it('should throw error when given a nagetive distance', function() {
+   it('should throw error when given negative distance', function() {
        var msg = 'Invalid charging distance!';
-       expect(taxiFee.charge(-1, 0)).to.throw(msg);
-       expect(taxiFee.charge(-2, 3.1)).to.throw(msg);
+       expect(taxiFee.charge).to.throw(msg);
+       
+       try {
+           taxiFee.charge(-4, 2);
+       } catch (e) {
+           expect(e.message).to.equal(msg);
+       }
    });
 })

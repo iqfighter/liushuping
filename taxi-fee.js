@@ -1,7 +1,13 @@
 function charge(kilometers, waitingMinutes) {
+    check(kilometers, waitingMinutes);
+    
     var distanceCharging = chargeDistance(kilometers);
     var waitingCharging = chargeWaiting(waitingMinutes);
     return Math.round(distanceCharging + waitingCharging);
+}
+
+function check(kilometers, waitingCharging) {
+    if (!(kilometers >= 0)) throw Error("Invalid charging distance!");
 }
 
 function chargeDistance(kilometers) {
