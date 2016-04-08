@@ -16,7 +16,7 @@ describe('taxiFee#charge', function() {
         expect(taxiFee.charge(2, 2)).to.equal(7);
         expect(taxiFee.charge(0, 1)).to.equal(6);
         expect(taxiFee.charge(0, 3)).to.equal(7);
-    })
+    });
     
    it('should charge 0.8 RMB per kilometer within 8 kilometers', function() {
        expect(taxiFee.charge(3, 0)).to.equal(7);
@@ -26,5 +26,13 @@ describe('taxiFee#charge', function() {
        expect(taxiFee.charge(2.7, 0)).to.equal(7);
        expect(taxiFee.charge(3, 1)).to.equal(7);
        expect(taxiFee.charge(3, 3)).to.equal(8);
+   });
+   
+   it('should charge 1.2 RMB per kilometer for distances over 8 kilometers', function() {
+       expect(taxiFee.charge(9, 0)).to.equal(12);
+       expect(taxiFee.charge(10, 0)).to.equal(13);
+       expect(taxiFee.charge(9.5, 0)).to.equal(13);
+       expect(taxiFee.charge(9, 2)).to.equal(13);
+       expect(taxiFee.charge(100, 2.3)).to.equal(122);
    })
 })
