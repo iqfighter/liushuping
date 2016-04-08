@@ -7,6 +7,14 @@ function expects(inputArr, expectArr) {
     });
 }
 
+function expectErr(kilometers, waitingMinutes, msg) {
+    try {
+        taxiFee.charge(kilometers, waitingMinutes);
+    } catch (e) {
+        expect(e.message).to.equal(msg);
+    }
+}
+
 describe('taxiFee#charge', function() {
     it('should charge 6 RMB within 2 kilometers without waiting time', function() {
         expects([[1, 0], [1.1, 0.0], [2, 0], [0, 0]], [6, 6, 6, 6])
@@ -26,41 +34,21 @@ describe('taxiFee#charge', function() {
 
     it('should throw error when given negative distance', function() {
         var msg = 'Invalid charging distance!';
-
-        try {
-            taxiFee.charge(-4, 2);
-        } catch (e) {
-            expect(e.message).to.equal(msg);
-        }
+        expectErr(-4, 2, msg);
     });
 
     it('should throw error when given non-numeric distance value', function() {
         var msg = 'Invalid charging distance!';
-
-        try {
-            taxiFee.charge('abc', 2);
-        } catch (e) {
-            expect(e.message).to.equal(msg);
-        }
+        expectErr('abc', 2, msg);
     });
 
     it('should throw error when given negative waiting time', function() {
         var msg = 'Invalid waiting time!';
-
-        try {
-            taxiFee.charge(4, -2);
-        } catch (e) {
-            expect(e.message).to.equal(msg);
-        }
+        expectErr(4, -2, msg);
     });
 
     it('should throw error when given non-numeric waiting time', function() {
         var msg = 'Invalid waiting time!';
-
-        try {
-            taxiFee.charge(4, 'abc');
-        } catch (e) {
-            expect(e.message).to.equal(msg);
-        }
+        expectErr(4, 'abc', msg);
     });
 });
