@@ -32,23 +32,15 @@ describe('taxiFee#charge', function() {
         expects([[9, 0], [10, 0], [9.5, 0], [9, 2], [100, 2.3]], [12, 13, 13, 13, 122]);
     });
 
-    it('should throw error when given negative distance', function() {
+    it('should throw error when given an invalid distance', function() {
         var msg = 'Invalid charging distance!';
         expectErr(-4, 2, msg);
-    });
-
-    it('should throw error when given non-numeric distance value', function() {
-        var msg = 'Invalid charging distance!';
         expectErr('abc', 2, msg);
     });
 
-    it('should throw error when given negative waiting time', function() {
+    it('should throw error when given an invalid waiting time', function() {
         var msg = 'Invalid waiting time!';
         expectErr(4, -2, msg);
-    });
-
-    it('should throw error when given non-numeric waiting time', function() {
-        var msg = 'Invalid waiting time!';
         expectErr(4, 'abc', msg);
     });
 });
