@@ -46,4 +46,14 @@ describe('taxiFee#charge', function() {
            expect(e.message).to.equal(msg);
        }
    });
-})
+   
+   it('should throw error when given non-numeric distance value', function() {
+       var msg = 'Invalid charging distance!';
+       
+       try {
+           taxiFee.charge('abc', 2);
+       } catch (e) {
+           expect(e.message).to.equal(msg);
+       }
+   });
+});
