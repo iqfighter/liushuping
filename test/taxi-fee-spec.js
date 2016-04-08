@@ -56,4 +56,25 @@ describe('taxiFee#charge', function() {
            expect(e.message).to.equal(msg);
        }
    });
+   
+     it('should throw error when given negative waiting time', function() {
+       var msg = 'Invalid waiting time!';
+       expect(taxiFee.charge).to.throw(msg);
+       
+       try {
+           taxiFee.charge(4, -2);
+       } catch (e) {
+           expect(e.message).to.equal(msg);
+       }
+   });
+   
+   it('should throw error when given non-numeric waiting time', function() {
+       var msg = 'Invalid waiting time!';
+       
+       try {
+           taxiFee.charge(4, 'abc');
+       } catch (e) {
+           expect(e.message).to.equal(msg);
+       }
+   });
 });
