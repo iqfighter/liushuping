@@ -36,11 +36,18 @@ describe('taxiFee#charge', function() {
         var msg = 'Invalid charging distance!';
         expectErr(-4, 2, msg);
         expectErr('abc', 2, msg);
+        expectErr({}, 2, msg);
+        expectErr(null, 2, msg);
+        expectErr(undefined, 2, msg);
     });
 
     it('should throw error when given an invalid waiting time', function() {
         var msg = 'Invalid waiting time!';
         expectErr(4, -2, msg);
         expectErr(4, 'abc', msg);
+        expectErr(4, undefined, msg);
+        expectErr(4, null, msg);
+        expectErr(4, false, msg);
+        expectErr(4, {}, msg);
     });
 });
