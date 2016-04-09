@@ -5,5 +5,8 @@ This repo is organized by folders, each folder represents a code dojo practice w
 
 The coding practices can be demonstrated either in `git log` or in Github history.
 
+## Code Dojo
+* [Taxi Fee] (taxi-fee) - TDD practice
+
 ## License
 MIT
